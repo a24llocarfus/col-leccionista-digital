@@ -1,19 +1,9 @@
 <template>
   <div class="card">
-    <!-- Funciona tant per a receptes com per a categories -->
-    <img
-      :src="item.strMealThumb || item.strCategoryThumb"
-      :alt="item.strMeal || item.strCategory"
-      class="card-img"
-    />
+    <img :src="item.strMealThumb" :alt="item.strMeal" />
     <div class="info">
-      <h3>{{ item.strMeal || item.strCategory }}</h3>
-      <p v-if="item.strCategory && item.strMeal" class="badge">
-        {{ item.strCategory }}
-      </p>
-      <p v-if="item.strCategoryDescription" class="desc">
-        {{ item.strCategoryDescription.slice(0, 100) }}...
-      </p>
+      <h3>{{ item.strMeal }}</h3>
+      <p v-if="item.strCategory">{{ item.strCategory }}</p>
     </div>
   </div>
 </template>
@@ -29,50 +19,70 @@ defineProps({
 
 <style scoped>
 .card {
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
   background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid #edf2f7;
+  cursor: pointer;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 174, 239, 0.18);
+  border-color: #00aeef;
 }
 
-.card-img {
+.card img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
-  background: #f0f0f0;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
 }
 
 .info {
-  padding: 12px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  flex: 1;
 }
 
-h3 {
+.info h3 {
   margin: 0;
-  font-size: 1.05rem;
-  color: #231f20;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
 }
 
-.badge {
-  margin: 0;
+.card:hover .info h3 {
   color: #00aeef;
-  font-weight: 600;
-  font-size: 0.85rem;
 }
 
-.desc {
+.info p {
   margin: 0;
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #00aeef;
+  background: #e6f7fd;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 </style>
